@@ -1,4 +1,11 @@
+@font-face {
+    font-family: "vazir-reg";
+    src: url("fonts/Vazir-Regular-FD.ttf");
+    src: url("fonts/Vazir-Regular-FD.ttf") format("truetype");
+}
+
 body{
+    font-family: "vazir-reg", Arial, Helvetica !important;
     background-color: rgb(248, 250, 253);
 }
 

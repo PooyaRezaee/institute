@@ -34,10 +34,10 @@
         <!-- Artiles -->
         {% for article in all_articles %}
         <div>
-            <h3><a href="{% url 'home:detail-article' article.pk %}" class="link">{{article.title}}</a></h3>
+            <h3>{{article.title}}</h3>
             <hr>
-            <p>{{article.body | truncatechars:15 }}</p>
-            <small class="float-start text-primary">{{article.created | timesince}} قبل</small>
+            <p>{{article.body | truncatechars:25 | linebreaks}} <a href="{% url 'home:detail-article' article.pk %}" class='btn btn-sm btn-primary'>خواندن ادامه</a></p>
+            <small class="float-start text-dark">{{article.created | timesince}} قبل</small>
             <small class="float-end text-success">نویسنده : {{article.author}}</small>
             <!-- Other -->
         </div>
