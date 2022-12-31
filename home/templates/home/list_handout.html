@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div dir="rtl" class="col-8 box mx-auto mt-5 p-3">
+    <h4>لیست جزوات (برای دانلود کلیک کنید)</h4>
+    <hr>
+    {% for handout in all_handout %}
+    <a href='{{ handout.pdf.url }}' class="item-box d-block">
+        {{handout.title}}
+    </a>
+    {% empty %}
+    <p class="item-box d-block">
+        در حال حاضر جزوه ای بارگذاری نشده
+    </p>
+    {% endfor %}
+</div>
+{% endblock body %}

@@ -35,3 +35,8 @@ class ArticleListView(ListView):
     template_name = 'home/list_article.html'
     model = Article
     context_object_name = 'all_articles'
+
+class HandoutListView(ListView):
+    template_name = 'home/list_handout.html'
+    model = Handout
+    context_object_name = 'all_handout'
