@@ -6,7 +6,7 @@
     <div class="d-flex flex-column float-end col-3">
         <section class="box p-2" dir="rtl">
             <!-- News -->
-            {% for news in all_news %}
+            {% for news in last_news %}
             <a href='{% url "home:detail-news" news.id %}' class="item-box d-block">
                 {{news.title}}
             </a>
@@ -18,8 +18,8 @@
         </section>
         <section class="box p-2" dir="rtl">
             <!-- handout -->
-            {% for handout in all_handout %}
-            <a href='#' class="item-box d-block">
+            {% for handout in last_handout %}
+            <a href='{{ handout.pdf.url }}' class="item-box d-block">
                 {{handout.title}}
             </a>
             {% empty %}
@@ -32,7 +32,7 @@
 
     <section class="col-8 float-start box p-3" dir="rtl">
         <!-- Artiles -->
-        {% for article in all_articles %}
+        {% for article in last_articles %}
         <div>
             <h3>{{article.title}}</h3>
             <hr>

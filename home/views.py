@@ -1,15 +1,17 @@
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import DetailView,ListView
-from .models import News,Article
+from .models import News,Article,Handout
 class Index(View):
     def get(self,request):
-        all_news = News.objects.all().order_by('-created')[:5]
-        all_articles = Article.objects.all().order_by('-created')[:5]
+        last_news = News.objects.all().order_by('-created')[:5]
+        last_articles = Article.objects.all().order_by('-created')[:5]
+        last_handout = Handout.objects.all().order_by('-created')[:5]
 
         context = {
-            'all_news':all_news,
-            'all_articles':all_articles,
+            'last_news':last_news,
+            'last_articles':last_articles,
+            'last_handout':last_handout,
         }
 
         return render(request,'home/index.html',context)
