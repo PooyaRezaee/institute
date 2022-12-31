@@ -34,7 +34,7 @@
         <!-- Artiles -->
         {% for article in all_articles %}
         <div>
-            <h3><a href='#' class="link">{{article.title}}</a></h3>
+            <h3><a href="{% url 'home:detail-article' article.pk %}" class="link">{{article.title}}</a></h3>
             <hr>
             <p>{{article.body | truncatechars:15 }}</p>
             <small class="float-start text-primary">{{article.created | timesince}} قبل</small>
