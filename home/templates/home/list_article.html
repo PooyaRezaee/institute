@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div dir="rtl" class="col-9 box mx-auto mt-5 p-4">
+    {% for article in all_articles %}
+    <div class='custom-shadow p-3 radius'>
+        <h3><a href="{% url 'home:detail-article' article.pk %}" class="link">{{article.title}}</a></h3>
+        <hr>
+        <p>{{article.body | truncatechars:15 }}</p>
+        <small class="float-start text-primary">{{article.created | timesince}} قبل</small>
+        <small class="float-end text-success">نویسنده : {{article.author}}</small>
+        <div class='clearfix'></div>
+    </div>
+    {% empty %}
+    <p class="item-box d-block">
+        در حال حاضر مقاله ای بارگذاری نشده
+    </p>
+    {% endfor %}
+</div>
+{% endblock body %}

@@ -28,3 +28,8 @@ class DetailArticleView(DetailView):
     template_name = 'home/detail_article.html'
     model = Article
     context_object_name = 'article'
+
+class ArticleListView(ListView):
+    template_name = 'home/list_article.html'
+    model = Article
+    context_object_name = 'all_articles'
