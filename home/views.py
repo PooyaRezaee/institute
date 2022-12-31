@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import DetailView
+from django.views.generic import DetailView,ListView
 from .models import News
 class Index(View):
     def get(self,request):
@@ -16,3 +16,8 @@ class DetailNewsView(DetailView):
     template_name = 'home/detail_news.html'
     model = News
     context_object_name = 'news'
+
+class NewsListView(ListView):
+    template_name = 'home/list_news.html'
+    model = News
+    context_object_name = 'all_news'
