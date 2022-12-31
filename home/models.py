@@ -25,3 +25,15 @@ class Article(models.Model):
     class Meta:
         verbose_name = 'مقاله'
         verbose_name_plural  = 'مقالات'
+
+class Handout(models.Model):
+    title = models.CharField(max_length=64,verbose_name='عنوان')
+    pdf = models.FileField(upload_to='pdf',verbose_name='فایل پی دی اف')
+    created = models.DateTimeField(auto_now_add=True,verbose_name='زمان ایجاد')
+
+    def __str__(self):
+        return self.title
+    
+    class Meta:
+        verbose_name = 'جزوه'
+        verbose_name_plural  = 'جزوات'
