@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block body %}
 <main class="mt-2 m-1">
@@ -31,11 +32,15 @@
 
     <section class="col-8 float-start box p-3" dir="rtl">
         <!-- Artiles -->
-        {% for article in all_article %}
-        <a href='#' class="item-box d-block">
-            {{article.title}}
+        {% for article in all_articles %}
+        <div>
+            <h3><a href='#' class="link">{{article.title}}</a></h3>
+            <hr>
+            <p>{{article.body | truncatechars:15 }}</p>
+            <small class="float-start text-primary">{{article.created | timesince}} قبل</small>
+            <small class="float-end text-success">نویسنده : {{article.author}}</small>
             <!-- Other -->
-        </a>
+        </div>
         {% empty %}
         <p class="item-news d-block">
             در حال حاضر مقاله ای بارگذاری نشده

@@ -21,3 +21,9 @@ a{
 .item-box:hover{
     background-color: #eff2f5;
 }
+.link{
+    transition: color 0.2s;
+}
+.link:hover{
+    color: rgb(0, 124, 165);
+}

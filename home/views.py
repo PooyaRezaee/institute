@@ -1,13 +1,15 @@
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import DetailView,ListView
-from .models import News
+from .models import News,Article
 class Index(View):
     def get(self,request):
         all_news = News.objects.all().order_by('-created')[:5]
+        all_articles = Article.objects.all().order_by('-created')[:5]
 
         context = {
             'all_news':all_news,
+            'all_articles':all_articles,
         }
 
         return render(request,'home/index.html',context)
