@@ -1,0 +1,23 @@
+body{
+    background-color: rgb(248, 250, 253);
+}
+
+
+a{
+    color: black;
+    text-decoration: none;
+}
+
+
+.box,form,.box-content{
+    box-shadow: rgb(88 102 126 / 8%) 0px 4px 24px, rgb(88 102 126 / 12%) 0px 1px 2px;
+    background-color: white;
+    margin: 1vw;
+}
+.item-box{
+    padding: 10px;
+    transition: background-color 0.5s;
+}
+.item-box:hover{
+    background-color: #eff2f5;
+}

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="col-8 m-auto mt-5 box-content p-5" dir='rtl'>
+        <h3>{{news.title}}</h3>
+        <hr>
+        <p>{{news.body | linebreaks }}</p>
+    </div>
+{% endblock body  %}
