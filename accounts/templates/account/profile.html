@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+<form method='POST' dir="rtl" class="col-8 m-auto p-5 mt-5">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary col-12 my-5">اپدیت پروفایل</button>
+
+    
+    {% with request.user.teacher as teacher %}
+    {% if teacher.exists %}
+    {% if teacher.get.is_active %}
+    <a class="btn btn-success">شما از مدرسان موسسه هستید</a>
+    {% else %}
+    <a class="btn btn-warning">درخواست مدرس شدن شما در دست بررسی است</a>
+    {% endif %}
+    {% else %}
+    <a href="{% url 'accounts:teacher-request' %}" class="btn btn-primary">درخواست برای مدرس شدن</a>
+    {% endif %}
+    {% endwith %}
+
+</form>
+{% endblock body %}
