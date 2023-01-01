@@ -3,9 +3,11 @@
 {% block body %}
 <div dir="rtl" class="col-8 box mx-auto mt-5">
     {% for news in all_news %}
-    <a href='{% url "home:detail-news" news.id %}' class="item-box d-block">
-        {{news.title}}
+    <a href='{% url "home:detail-news" news.id %}' class="item-box d-flex justify-content-between">
+        <span>{{news.title}}</span>
+        <span>{{news.created | date:'f' }} | {{news.created | date:'SHORT_DATE_FORMAT' }}</span>
     </a>
+    <hr class='m-1'>
     {% empty %}
     <p class="item-box d-block">
         در حال حاضر خبری بارگذاری نشده

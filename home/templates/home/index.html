@@ -7,9 +7,12 @@
         <section class="box p-2" dir="rtl">
             <!-- News -->
             {% for news in last_news %}
-            <a href='{% url "home:detail-news" news.id %}' class="item-box d-block">
-                {{news.title}}
+            <hr class='m-0'>
+            <a href='{% url "home:detail-news" news.id %}' class="item-box d-flex justify-content-between">
+                <span>{{news.title}}</span>
+                <span>{{news.created | date:'f' }} | {{news.created | date:'SHORT_DATE_FORMAT' }}</span>
             </a>
+            <hr class='m-0'>
             {% empty %}
             <p class="item-box d-block">
                 در حال حاضر خبری بارگذاری نشده
@@ -18,10 +21,12 @@
         </section>
         <section class="box p-2" dir="rtl">
             <!-- handout -->
+            <hr class='m-0'>
             {% for handout in last_handout %}
             <a href='{{ handout.pdf.url }}' class="item-box d-block">
                 {{handout.title}}
             </a>
+            <hr class='m-0'>
             {% empty %}
             <p class="item-news d-block">
                 در حال حاضر جزوه ای بارگذاری نشده
@@ -30,16 +35,16 @@
         </section>
     </div>
 
-    <section class="col-8 float-start box p-3" dir="rtl">
+    <section class="col-8 float-start box p-3 ms-5" dir="rtl">
         <!-- Artiles -->
         {% for article in last_articles %}
-        <div>
-            <h3>{{article.title}}</h3>
+        <div class="col-10 mx-auto my-4 p-3 border border-1 border-info rounded">
+            <h3><a href="{% url 'home:detail-article' article.pk %}" class="link">{{article.title}}</a></h3>
             <hr>
-            <p>{{article.body | truncatechars:25 | linebreaks}} <a href="{% url 'home:detail-article' article.pk %}" class='btn btn-sm btn-primary'>خواندن ادامه</a></p>
+            <p>{{article.body | truncatechars:300 | linebreaks}} <a href="{% url 'home:detail-article' article.pk %}" class='btn btn-sm btn-primary'>خواندن ادامه</a></p>
             <small class="float-start text-dark">{{article.created | timesince}} قبل</small>
             <small class="float-end text-success">نویسنده : {{article.author}}</small>
-            <!-- Other -->
+            <div class="clearfix"></div>
         </div>
         {% empty %}
         <p class="item-news d-block">

@@ -5,5 +5,6 @@
         <h3>{{news.title}}</h3>
         <hr>
         <p>{{news.body | linebreaks }}</p>
+        <p class='text-primary font-italic'><span>{{news.created | date:'f' }} | {{news.created | date:'SHORT_DATE_FORMAT' }}</span></p>
     </div>
 {% endblock body  %}

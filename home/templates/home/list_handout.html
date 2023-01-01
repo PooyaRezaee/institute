@@ -4,14 +4,17 @@
 <div dir="rtl" class="col-8 box mx-auto mt-5 p-3">
     <h4>لیست جزوات (برای دانلود کلیک کنید)</h4>
     <hr>
+    <div class=" border border-info col-11 mx-auto">
     {% for handout in all_handout %}
     <a href='{{ handout.pdf.url }}' class="item-box d-block">
         {{handout.title}}
     </a>
+    <hr class="m-1">
     {% empty %}
     <p class="item-box d-block">
         در حال حاضر جزوه ای بارگذاری نشده
     </p>
     {% endfor %}
+</div>
 </div>
 {% endblock body %}
