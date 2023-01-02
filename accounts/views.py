@@ -132,3 +132,21 @@ class ArticleListView(LoginRequiredMixin,ListView):
         queryset = Article.objects.filter(author=self.request.user)
         return queryset
 
+class DeleteArticleView(LoginRequiredMixin,View):
+    def dispatch(self, request,pk, *args, **kwargs):
+        try:
+            article = Article.objects.get(pk=pk,author=self.request.user)
+        except:
+            return HttpResponseForbidden()
+
+        return super().dispatch(request,pk, *args, **kwargs)
+
+    
+    def get(self,request,pk):
+        try:
+            article = Article.objects.get(pk=pk)
+        except:
+            return HttpResponseNotFound()
+        
+        article.delete()
+        return redirect('accounts:list-articles')

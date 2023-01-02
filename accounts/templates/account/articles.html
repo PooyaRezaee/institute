@@ -18,7 +18,7 @@
             <td><a href="{% url 'home:detail-article' article.pk %}" class="link">{{article.title}}</a></td>
             <td>{{article.created | timesince}}</td>
 
-            <td><a href="#" class="btn btn-danger">حذف مقاله</a></td>
+            <td><a href="{% url 'accounts:delete-article' article.pk %}" class="btn btn-danger">حذف مقاله</a></td>
 
         </tr>
     {% empty %}
