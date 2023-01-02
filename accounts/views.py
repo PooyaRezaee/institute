@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views import View
-from django.views.generic import CreateView,UpdateView,RedirectView
+from django.views.generic import CreateView,UpdateView,RedirectView,DeleteView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -58,7 +58,7 @@ class MyCoursesView(LoginRequiredMixin,View):
             try:
                 course = Course.objects.get(pk=course_id)
             except:
-                return HttpResponseNotFound
+                return HttpResponseNotFound()
             
             if not course in request.user.courses.all():
                 course.members.add(request.user)
@@ -77,3 +77,38 @@ class MyCoursesView(LoginRequiredMixin,View):
         }
 
         return render(request,'account/courses.html',context)
+
+class LeaveCourse(LoginRequiredMixin,View):
+    def get(self,request,pk):
+        try:
+            course = Course.objects.get(pk=pk)
+        except:
+            return HttpResponseNotFound()
+        
+        try:
+            course.members.remove(request.user)
+        except:
+            return HttpResponseNotFound()
+
+        return redirect('accounts:list-courses')
+
+class DeleteCourse(LoginRequiredMixin,View):
+    def dispatch(self, request,pk, *args, **kwargs):
+        try:
+            teacher = Teacher.objects.get(account=request.user)
+            course = Course.objects.get(pk=pk,teacher=teacher)
+        except:
+            return HttpResponseForbidden()
+        if teacher.is_active:
+            return super().dispatch(request,pk, *args, **kwargs)
+        else:
+            return HttpResponseForbidden()
+    
+    def get(self,request,pk):
+        try:
+            course = Course.objects.get(pk=pk)
+        except:
+            return HttpResponseNotFound()
+        
+        course.delete()
+        return redirect('accounts:list-courses')
