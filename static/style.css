@@ -1,7 +1,7 @@
 @font-face {
     font-family: "vazir-reg";
-    src: url("fonts/Vazir-Regular-FD.ttf");
-    src: url("fonts/Vazir-Regular-FD.ttf") format("truetype");
+    src: url("font/Vazir-Regular-FD.ttf");
+    src: url("font/Vazir-Regular-FD.ttf") format("truetype");
 }
 
 body{
