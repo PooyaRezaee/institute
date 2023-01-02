@@ -4,7 +4,8 @@
 {% block body %}
 <main class="mt-2 m-1">
     <div class="d-flex flex-column float-end col-3">
-        <section class="box p-2" dir="rtl">
+        <section class="box" dir="rtl">
+            <div class="item-box text-center bg-primary text-light rounded-top-3">جدیدترین اخبار</div>
             <!-- News -->
             {% for news in last_news %}
             <hr class='m-0'>
@@ -14,12 +15,13 @@
             </a>
             <hr class='m-0'>
             {% empty %}
-            <p class="item-box d-block">
+            <p class="item-box d-block text-center p-2">
                 در حال حاضر خبری بارگذاری نشده
             </p>
             {% endfor %}
         </section>
-        <section class="box p-2" dir="rtl">
+        <section class="box" dir="rtl">
+            <div class="item-box text-center bg-primary text-light rounded-top-3">جدیدترین جزوه ها</div>
             <!-- handout -->
             <hr class='m-0'>
             {% for handout in last_handout %}
@@ -28,14 +30,30 @@
             </a>
             <hr class='m-0'>
             {% empty %}
-            <p class="item-news d-block">
+            <p class="item-news d-block text-center p-2">
                 در حال حاضر جزوه ای بارگذاری نشده
+            </p>
+            {% endfor %}
+        </section>
+        <section class="box" dir="rtl">
+            <div class="item-box text-center bg-primary text-light rounded-top-3">جدیدترین دوره ها</div>
+            <!-- handout -->
+            <hr class='m-0'>
+            {% for course in last_courses %}
+            <a href="{% url 'home:detail-course' course.pk %}" class="item-box d-block">
+                {{course.name}}
+            </a>
+            <hr class='m-0'>
+            {% empty %}
+            <p class="item-news d-block text-center p-2">
+                در حال حاضر دوره ای درحال برکزاری نمی باشد
             </p>
             {% endfor %}
         </section>
     </div>
 
     <section class="col-8 float-start box p-3 ms-5" dir="rtl">
+        <div class="item-box text-center bg-dark text-light">اخرین مقالات</div>
         <!-- Artiles -->
         {% for article in last_articles %}
         <div class="col-10 mx-auto my-4 p-3 border border-1 border-info rounded">
@@ -47,7 +65,7 @@
             <div class="clearfix"></div>
         </div>
         {% empty %}
-        <p class="item-news d-block">
+        <p class="item-news d-block text-center p-2">
             در حال حاضر مقاله ای بارگذاری نشده
         </p>
         {% endfor %}

@@ -8,11 +8,13 @@ class Index(View):
         last_news = News.objects.all().order_by('-created')[:5]
         last_articles = Article.objects.all().order_by('-created')[:5]
         last_handout = Handout.objects.all().order_by('-created')[:5]
+        last_courses = Course.objects.all().order_by('-created')[:5]
 
         context = {
             'last_news':last_news,
             'last_articles':last_articles,
             'last_handout':last_handout,
+            'last_courses':last_courses,
         }
 
         return render(request,'home/index.html',context)
