@@ -39,6 +39,11 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">پروفایل</a></li>
+                                
+                                {% if request.user.teacher.is_active %}
+                                    <li><a class="dropdown-item" href="{% url 'accounts:create-course' %}">ایجاد دوره اموزشی جدید</a></li>
+                                {% endif %}
+                                    
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>

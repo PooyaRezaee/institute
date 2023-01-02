@@ -9,8 +9,8 @@
 
     
     {% with request.user.teacher as teacher %}
-    {% if teacher.exists %}
-    {% if teacher.get.is_active %}
+    {% if teacher %}
+    {% if teacher.is_active %}
     <a class="badge bg-success p-2 fs-5">شما از مدرسان موسسه هستید</a>
     {% else %}
     <a class="badge bg-warning p-2 fs-5 text-dark">درخواست مدرس شدن شما در دست بررسی است</a>
