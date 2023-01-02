@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic import DetailView,ListView
 from .models import News,Article,Handout
+from accounts.models import Course
 class Index(View):
     def get(self,request):
         last_news = News.objects.all().order_by('-created')[:5]
@@ -40,3 +41,8 @@ class HandoutListView(ListView):
     template_name = 'home/list_handout.html'
     model = Handout
     context_object_name = 'all_handout'
+
+class CourseListView(ListView):
+    template_name = 'home/list_course.html'
+    model = Course
+    context_object_name = 'all_courses'

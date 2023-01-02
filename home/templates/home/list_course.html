@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div dir="rtl" class="col-9 box mx-auto mt-5 p-4 d-flex flex-wrap">
+    {% for course in all_courses %}
+    <div class='custom-shadow p-3 radius col-3 mx-auto my-2'>
+        <img class="img-thumbnail w-100 h-75" src="{{ course.thumbnail.url }}">
+        <h3><a href="" class="link">{{course.name}}</a></h3>
+        <hr>
+        <small class="float-start text-primary">تاریخ شروع : {{course.start | date}}</small>
+        <small class="float-end text-success">استاد دوره : {{course.teacher}}</small>
+        <div class='clearfix'></div>
+    </div>
+    <div class='m-1'></div>
+    {% empty %}
+    <p class="item-box d-block">
+            درحال حاضر دور ای برای ثبت نام وجود ندارد
+    </p>
+    {% endfor %}
+</div>
+{% endblock body %}
