@@ -11,11 +11,12 @@
     {% with request.user.teacher as teacher %}
     {% if teacher.exists %}
     {% if teacher.get.is_active %}
-    <a class="btn btn-success">شما از مدرسان موسسه هستید</a>
+    <a class="badge bg-success p-2 fs-5">شما از مدرسان موسسه هستید</a>
     {% else %}
-    <a class="btn btn-warning">درخواست مدرس شدن شما در دست بررسی است</a>
+    <a class="badge bg-warning p-2 fs-5 text-dark">درخواست مدرس شدن شما در دست بررسی است</a>
     {% endif %}
     {% else %}
+    <a class="badge bg-success p-2 fs-5">شما دانشجو مووسسه هستید</a>
     <a href="{% url 'accounts:teacher-request' %}" class="btn btn-primary">درخواست برای مدرس شدن</a>
     {% endif %}
     {% endwith %}
