@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block body %}
+
+<form method='POST' dir="rtl" class="col-8 m-auto p-5 mt-5" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary col-12 my-5">ایجاد مقاله جدید</button>
+</form>
+{% endblock body %}

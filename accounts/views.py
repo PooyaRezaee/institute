@@ -1,13 +1,15 @@
 from django.shortcuts import render,redirect
 from django.views import View
-from django.views.generic import CreateView,UpdateView,RedirectView,DeleteView
+from django.views.generic import CreateView,UpdateView,RedirectView,DeleteView,ListView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy,reverse
 from django.http import HttpResponseForbidden,HttpResponseNotFound
-from .forms import ProfileForm,CourseCreationForm
-from accounts.models import Teacher,Course
+from .forms import ProfileForm,CourseCreationForm,ArticleCreationForm
+from .models import Teacher,Course
+from home.models import Article
+
 class RegisterView(CreateView):
     template_name = 'registration/register.html'
     form_class = UserCreationForm
@@ -112,3 +114,21 @@ class DeleteCourse(LoginRequiredMixin,View):
         
         course.delete()
         return redirect('accounts:list-courses')
+
+class CreateArticleView(LoginRequiredMixin,CreateView):
+    template_name = 'account/craete_article.html'
+    form_class = ArticleCreationForm
+
+    def form_valid(self, form):
+        cd = form.cleaned_data
+        Article.objects.create(**cd,author=self.request.user)
+        return redirect('accounts:list-articles')
+
+class ArticleListView(LoginRequiredMixin,ListView):
+    template_name = 'account/articles.html'
+    context_object_name = 'list_articles'
+
+    def get_queryset(self):
+        queryset = Article.objects.filter(author=self.request.user)
+        return queryset
+

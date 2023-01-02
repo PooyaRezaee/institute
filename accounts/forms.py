@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Course
+from home.models import Article
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -18,3 +19,8 @@ class CourseCreationForm(forms.ModelForm):
             'description': forms.Textarea(),
             'start': DateInput,
         }
+
+class ArticleCreationForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        exclude = ('author',)

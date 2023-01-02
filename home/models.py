@@ -15,7 +15,7 @@ class News(models.Model):
 
 class Article(models.Model):
     author = models.ForeignKey(User,related_name='article',verbose_name='نویسنده',on_delete=models.CASCADE)
-    title = models.CharField(max_length=64,verbose_name='عنوان')
+    title = models.CharField(max_length=64,verbose_name='عنوان',unique=True)
     body = models.TextField(verbose_name='متن مقاله')
     created = models.DateTimeField(auto_now_add=True)
 
