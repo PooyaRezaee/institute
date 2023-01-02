@@ -16,7 +16,12 @@
         
         {% if request.user.is_authenticated %}
             {% if not request.user.teacher %}
-                <a href="#" class="btn btn-primary w-100">ثبت نام در دوره</a>
+                
+                {% if course in request.user.courses.all %}
+                <a class="btn btn-success w-100 disabled">شما در این دوره ثبت نام کردید</a>
+                {% else %}
+                <a href="{% url 'accounts:register-courses' course.pk %}" class="btn btn-primary w-100">ثبت نام در دوره</a>
+                {% endif %}
             {% endif %}
         {% else %}
         <a href="{% url 'accounts:login' %}" class="btn btn-secondary w-100">برای ثبت نام در دوره اول لاگین کنید</a>

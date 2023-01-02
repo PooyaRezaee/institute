@@ -9,6 +9,7 @@ class Course(models.Model):
     teacher = models.ForeignKey('Teacher',models.CASCADE,verbose_name='استاد دوره')
     start = models.DateField(verbose_name='تاریخ شروع دوره')
     created = models.DateTimeField(auto_now_add=True,verbose_name='زمان ایجاد')
+    members = models.ManyToManyField(User,related_name='courses')
 
     class Meta:
         verbose_name = 'دوره'

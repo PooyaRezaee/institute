@@ -13,7 +13,7 @@ class ProfileForm(forms.ModelForm):
 class CourseCreationForm(forms.ModelForm):
     class Meta:
         model = Course
-        exclude = ('teacher',)
+        exclude = ('teacher','members')
         widgets = {
             'description': forms.Textarea(),
             'start': DateInput,

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div dir="rtl" class="col-9 box mx-auto mt-5 p-4">
+    <table class="table table-hover table align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>نام دوره</th>
+            <th>تاریخ شروع</th>
+            <th>استاد</th>
+            <th>عملگر</th>
+          </tr>
+        </thead>
+        <tbody>
+
+    {% for course in course_list %}
+        <tr>
+            <td><img class="img-thumbnail h-75" src="{{ course.thumbnail.url }}" width='100'> <a href="{% url 'home:detail-course' course.pk %}" class="link">{{course.name}}</a></td>
+            <td>{{course.start | date}}</td>
+            <td>{{course.teacher}}</td>
+            {% if is_teacher %}
+            <td><a class="btn btn-danger">حذف دوره</a></td>
+            {% else %}
+            <td><a class="btn btn-danger">انصراف از دوره</a></td>
+            {% endif %}
+        </tr>
+    {% empty %}
+    <p class="item-box d-block">
+        شما دوره ای ندارید
+    </p>
+    {% endfor %}
+        </tbody>
+    </table>
+    {% if is_teacher %}
+    <a href="{% url 'accounts:create-course' %}" class="btn btn-primary">افزودن دوره اموزشی جدید</a>
+    {% endif %}
+</div>
+{% endblock body %}

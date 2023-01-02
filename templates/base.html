@@ -40,9 +40,7 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">پروفایل</a></li>
                                 
-                                {% if request.user.teacher.is_active %}
-                                    <li><a class="dropdown-item" href="{% url 'accounts:create-course' %}">ایجاد دوره اموزشی جدید</a></li>
-                                {% endif %}
+                                <li><a class="dropdown-item" href="{% url 'accounts:list-courses' %}">دوره ها</a></li>
                                     
                                 <li>
                                     <hr class="dropdown-divider">
@@ -62,7 +60,7 @@
                         <a class="nav-link active" aria-current="page" href="{% url 'home:list-news' %}">اخبار</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home:list-course' %}">دوره های سایت</a>
+                        <a class="nav-link active" aria-current="page" href="{% url 'home:list-course' %}">دوره ها (دروس)</a>
                     </li>
                 </ul>
             </div>
