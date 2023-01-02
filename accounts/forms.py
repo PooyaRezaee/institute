@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Course
-from home.models import Article
+from home.models import Article,Handout
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -24,3 +24,8 @@ class ArticleCreationForm(forms.ModelForm):
     class Meta:
         model = Article
         exclude = ('author',)
+
+class HandoutCreationForm(forms.ModelForm):
+    class Meta:
+        model = Handout
+        fields = '__all__'

@@ -6,9 +6,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy,reverse
 from django.http import HttpResponseForbidden,HttpResponseNotFound
-from .forms import ProfileForm,CourseCreationForm,ArticleCreationForm
+from .forms import ProfileForm,CourseCreationForm,ArticleCreationForm,HandoutCreationForm
 from .models import Teacher,Course
-from home.models import Article
+from home.models import Article,Handout
 
 class RegisterView(CreateView):
     template_name = 'registration/register.html'
@@ -34,7 +34,7 @@ class RequestTeacherView(LoginRequiredMixin,RedirectView):
             pass
         return super().get_redirect_url()
 
-class CourseCreateView(CreateView):
+class CourseCreateView(LoginRequiredMixin,CreateView):
     def dispatch(self, request, *args, **kwargs):
         try:
             teacher = Teacher.objects.get(account=request.user)
@@ -150,3 +150,23 @@ class DeleteArticleView(LoginRequiredMixin,View):
         
         article.delete()
         return redirect('accounts:list-articles')
+
+class CreateHandoutView(LoginRequiredMixin,CreateView):
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            teacher = Teacher.objects.get(account=request.user)
+        except:
+            return HttpResponseForbidden()
+        if teacher.is_active:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            return HttpResponseForbidden()
+
+
+    template_name = 'account/craete_handout.html'
+    form_class = HandoutCreationForm
+
+    def form_valid(self, form):
+        cd = form.cleaned_data
+        Handout.objects.create(**cd)
+        return redirect('home:index')

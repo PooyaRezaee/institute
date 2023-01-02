@@ -1,6 +1,6 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView,LogoutView
-from .views import RegisterView,ProfileView,RequestTeacherView,CourseCreateView,MyCoursesView,DeleteCourse,LeaveCourse,CreateArticleView,DeleteArticleView,ArticleListView
+from .views import RegisterView,ProfileView,RequestTeacherView,CourseCreateView,MyCoursesView,DeleteCourse,LeaveCourse,CreateArticleView,DeleteArticleView,ArticleListView,CreateHandoutView
 
 app_name = 'accounts'
 
@@ -18,4 +18,5 @@ urlpatterns = [
     path("article/", ArticleListView.as_view(), name="list-articles"),
     path("article/create/", CreateArticleView.as_view(), name="create-article"),
     path("article/delete/<int:pk>/", DeleteArticleView.as_view(), name="delete-article"),
+    path("handout/create/", CreateHandoutView.as_view(), name="create-handout"),
 ]
