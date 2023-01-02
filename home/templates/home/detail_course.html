@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="col-8 m-auto mt-5 box-content p-5" dir='rtl'>
+        <img class="img-thumbnail w-50 d-block mx-auto" src="{{ course.thumbnail.url }}">
+        <h3 class='float-start col-10'>{{ course.name }}</h3> 
+
+        <div class='float-end col-2 d-flex flex-column justify-content-around '>
+            <small class="text-success">استاد : {{ course.teacher }}</small> 
+            <small class="text-primary">تاریخ شروع دوره: {{ course.start | date }}</small>
+        </div>
+        <div class="clearfix"></div>
+        <hr>
+        <h5 class="float-start">توضیحات : </h5>
+        <p> {{course.description | linebreaks }} </p>
+        
+        {% if request.user.is_authenticated %}
+            {% if not request.user.teacher %}
+                <a href="#" class="btn btn-primary w-100">ثبت نام در دوره</a>
+            {% endif %}
+        {% else %}
+        <a href="{% url 'accounts:login' %}" class="btn btn-secondary w-100">برای ثبت نام در دوره اول لاگین کنید</a>
+        {% endif %}
+
+            
+    </div>
+{% endblock body  %}

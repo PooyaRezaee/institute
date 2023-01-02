@@ -5,7 +5,7 @@
     {% for course in all_courses %}
     <div class='custom-shadow p-3 radius col-3 mx-auto my-2'>
         <img class="img-thumbnail w-100 h-75" src="{{ course.thumbnail.url }}">
-        <h3><a href="" class="link">{{course.name}}</a></h3>
+        <h3><a href="{% url 'home:detail-course' course.pk %}" class="link">{{course.name}}</a></h3>
         <hr>
         <small class="float-start text-primary">تاریخ شروع : {{course.start | date}}</small>
         <small class="float-end text-success">استاد دوره : {{course.teacher}}</small>

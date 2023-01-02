@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Index,DetailNewsView,NewsListView,DetailArticleView,ArticleListView,HandoutListView,CourseListView
+from .views import Index,DetailNewsView,NewsListView,DetailArticleView,ArticleListView,HandoutListView,CourseListView,DetailCourseView
 
 app_name = 'home'
 
@@ -11,4 +11,5 @@ urlpatterns = [
     path("article/", ArticleListView.as_view(), name="list-article"),
     path("handout/", HandoutListView.as_view(), name="list-handout"),
     path("course/", CourseListView.as_view(), name="list-course"),
+    path("course/<int:pk>/", DetailCourseView.as_view(), name="detail-course"),
 ]

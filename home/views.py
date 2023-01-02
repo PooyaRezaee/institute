@@ -46,3 +46,8 @@ class CourseListView(ListView):
     template_name = 'home/list_course.html'
     model = Course
     context_object_name = 'all_courses'
+
+class DetailCourseView(DetailView):
+    template_name = 'home/detail_course.html'
+    model = Course
+    context_object_name = 'course'
