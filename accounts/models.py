@@ -14,7 +14,7 @@ class Course(models.Model):
         verbose_name_plural  = 'دوره ها'
 
 class Teacher(models.Model):
-    account = models.ForeignKey(User,on_delete=models.CASCADE,related_name='teacher',unique=True,verbose_name='حساب کاربری استاد')
+    account = models.OneToOneField(User,on_delete=models.CASCADE,related_name='teacher',unique=True,verbose_name='حساب کاربری استاد')
     is_active = models.BooleanField(default=False,verbose_name='فعال بودن')
     request_at = models.DateTimeField(auto_now_add=True,verbose_name='تاریخ درخواست')
 
