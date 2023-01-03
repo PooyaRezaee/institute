@@ -28,24 +28,36 @@ class Teacher(models.Model):
         verbose_name_plural  = 'مدرسان'
 
 class Choice(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20,verbose_name='نام گزینه')
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = 'گزینه'
+        verbose_name_plural  = 'گزینه ها'
 
 class Poll(models.Model):
-    name = models.CharField(max_length=64)
-    choices = models.ManyToManyField(Choice, related_name='poll')
-    owner = models.ForeignKey(Teacher,on_delete=models.CASCADE,related_name='polls')
-    for_course = models.ForeignKey(Course,on_delete=models.CASCADE,related_name='polls')
+    name = models.CharField(max_length=64,verbose_name='عنوان')
+    choices = models.ManyToManyField(Choice, related_name='poll',verbose_name='گزینه ها')
+    owner = models.ForeignKey(Teacher,on_delete=models.CASCADE,related_name='polls',verbose_name='مالک')
+    for_course = models.ForeignKey(Course,on_delete=models.CASCADE,related_name='polls',verbose_name='برای دوره')
 
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'نظرسنجی'
+        verbose_name_plural  = 'نظرسنجی ها'
+
 class Vote(models.Model):
-    poll = models.ForeignKey(Poll, on_delete=models.SET_NULL, related_name="votes", null=True, blank=True)
-    choice = models.ForeignKey(Choice, on_delete=models.SET_NULL, related_name="votes", null=True, blank=True)
-    user = models.ForeignKey(User,on_delete=models.SET_NULL, related_name="votes", null=True, blank=True)
+    poll = models.ForeignKey(Poll, on_delete=models.SET_NULL, related_name="votes", null=True, blank=True,verbose_name='نظرسنجی')
+    choice = models.ForeignKey(Choice, on_delete=models.SET_NULL, related_name="votes", null=True, blank=True,verbose_name='گزینه')
+    user = models.ForeignKey(User,on_delete=models.SET_NULL, related_name="votes", null=True, blank=True,verbose_name='کاربر')
 
     def __str__(self):
         return f"{self.poll.name} - {self.choice.name}"
+    
+    class Meta:
+        verbose_name = 'رای'
+        verbose_name_plural  = 'رای ها'

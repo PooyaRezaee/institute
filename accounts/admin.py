@@ -12,12 +12,12 @@ class CourseModelAdmin(admin.ModelAdmin):
     
 @admin.register(Poll)
 class PollModelAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name','owner','for_course')
 
 @admin.register(Choice)
 class ChoiceModelAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name',)
 
 @admin.register(Vote)
 class VoteModelAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('poll','choice','user')

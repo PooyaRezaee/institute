@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Index,DetailNewsView,NewsListView,DetailArticleView,ArticleListView,HandoutListView,CourseListView,DetailCourseView
+from .views import Index,DetailNewsView,NewsListView,DetailArticleView,ArticleListView,HandoutListView,CourseListView,DetailCourseView,DetailPollView
 
 app_name = 'home'
 
@@ -12,4 +12,5 @@ urlpatterns = [
     path("handout/", HandoutListView.as_view(), name="list-handout"),
     path("course/", CourseListView.as_view(), name="list-course"),
     path("course/<int:pk>/", DetailCourseView.as_view(), name="detail-course"),
+    path("polls/<int:pk>/", DetailPollView.as_view(), name="detail-poll"),
 ]

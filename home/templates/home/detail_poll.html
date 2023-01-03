@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <div class="col-8 m-auto mt-5 box-content p-5" dir='rtl'>
+        <h3>{{poll.name}}</h3>
+        <small>برای دوره {{poll.for_course.name}}</small>
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            {% for choice in poll.choices.all %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="choice_id" id="{{ choice.id }}" value="{{ choice.id }}">
+                <label class="form-check-label" for="{{ choice.id }}">
+                  {{ choice.name }}
+                </label>
+            </div>
+            {% endfor %}
+            <button class="btn btn-success w-100">ارسال نظرسنجی</button>
+        </form>
+    </div>
+{% endblock body  %}

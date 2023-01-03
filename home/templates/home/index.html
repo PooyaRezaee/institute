@@ -56,7 +56,7 @@
                 <!-- handout -->
                 <hr class='m-0'>
                 {% for poll in all_polls %}
-                <a href="" class="item-box d-block">
+                <a href="{% url 'home:detail-poll' poll.pk %}" class="item-box d-block">
                     {{poll.name}}
                 </a>
                 <hr class='m-0'>
