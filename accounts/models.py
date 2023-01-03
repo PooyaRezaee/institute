@@ -26,3 +26,26 @@ class Teacher(models.Model):
     class Meta:
         verbose_name = 'مدرس'
         verbose_name_plural  = 'مدرسان'
+
+class Choice(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+class Poll(models.Model):
+    name = models.CharField(max_length=64)
+    choices = models.ManyToManyField(Choice, related_name='poll')
+    owner = models.ForeignKey(Teacher,on_delete=models.CASCADE,related_name='polls')
+    for_course = models.ForeignKey(Course,on_delete=models.CASCADE,related_name='polls')
+
+    def __str__(self):
+        return self.name
+
+class Vote(models.Model):
+    poll = models.ForeignKey(Poll, on_delete=models.SET_NULL, related_name="votes", null=True, blank=True)
+    choice = models.ForeignKey(Choice, on_delete=models.SET_NULL, related_name="votes", null=True, blank=True)
+    user = models.ForeignKey(User,on_delete=models.SET_NULL, related_name="votes", null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.poll.name} - {self.choice.name}"

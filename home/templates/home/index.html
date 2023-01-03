@@ -50,6 +50,23 @@
             </p>
             {% endfor %}
         </section>
+        {% if request.user.is_authenticated %}
+            <section class="box" dir="rtl">
+                <div class="item-box text-center bg-primary text-light rounded-top-3">نظر سنجی های مربوط به شما</div>
+                <!-- handout -->
+                <hr class='m-0'>
+                {% for poll in all_polls %}
+                <a href="" class="item-box d-block">
+                    {{poll.name}}
+                </a>
+                <hr class='m-0'>
+                {% empty %}
+                <p class="item-news d-block text-center p-2">
+                    نظر سنجی پاسخ داده نشده ای برای شما وجود ندارد
+                </p>
+                {% endfor %}
+            </section>
+        {% endif %}
     </div>
 
     <section class="col-8 float-start box p-3 ms-5" dir="rtl">

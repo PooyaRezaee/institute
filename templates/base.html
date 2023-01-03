@@ -43,6 +43,7 @@
                                 <li><a class="dropdown-item" href="{% url 'accounts:list-articles' %}">مقالات شما</a></li>
                                 {% if request.user.teacher %}
                                 <li><a class="dropdown-item" href="{% url 'accounts:create-handout' %}">افزودن جزوه جدید</a></li>
+                                <li><a class="dropdown-item" href="{% url 'accounts:create-handout' %}">افزودن نظر سنجی جدید</a></li>
                                 {% endif %}
                                 <li>
                                     <hr class="dropdown-divider">

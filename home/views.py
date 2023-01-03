@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic import DetailView,ListView
 from .models import News,Article,Handout
-from accounts.models import Course
+from accounts.models import Course,Poll
 class Index(View):
     def get(self,request):
         last_news = News.objects.all().order_by('-created')[:5]
@@ -10,11 +10,16 @@ class Index(View):
         last_handout = Handout.objects.all().order_by('-created')[:5]
         last_courses = Course.objects.all().order_by('-created')[:5]
 
+        all_polls = None
+        if request.user.is_authenticated:
+            courses_user = request.user.courses.all()
+            all_polls = Poll.objects.filter(for_course__in=courses_user)
         context = {
             'last_news':last_news,
             'last_articles':last_articles,
             'last_handout':last_handout,
             'last_courses':last_courses,
+            'all_polls':all_polls,
         }
 
         return render(request,'home/index.html',context)
