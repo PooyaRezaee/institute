@@ -11,6 +11,9 @@ class Course(models.Model):
     created = models.DateTimeField(auto_now_add=True,verbose_name='زمان ایجاد')
     members = models.ManyToManyField(User,related_name='courses')
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = 'دوره'
         verbose_name_plural  = 'دوره ها'

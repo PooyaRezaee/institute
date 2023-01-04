@@ -65,16 +65,15 @@ class DetailCourseView(DetailView):
     context_object_name = 'course'
 
 class DetailPollView(LoginRequiredMixin,View):
-    # TODO CREATE DISPATCH FOR NOT VOTED AND FOR HER
     def dispatch(self, request,pk, *args, **kwargs):
         try:
             poll = Poll.objects.get(pk=pk)
-            if Vote.objects.filter(poll=poll,user=request.user).exists:
+            if Vote.objects.filter(poll=poll,user=request.user).exists():
                 return HttpResponseForbidden()
         except:
             return HttpResponseNotFound()
 
-        return super().dispatch(request,pk *args, **kwargs)
+        return super().dispatch(request,pk, *args, **kwargs)
 
 
     def get(self, request, pk):

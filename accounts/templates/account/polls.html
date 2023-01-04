@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block body %}
+<div dir="rtl" class="col-9 box mx-auto mt-5 p-4">
+    <table class="table table-hover table align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>عنوان</th>
+                <th>مرتبط با دوره</th>
+                <th>گزینه ها</th>
+                <th>تعداد کل شرکت کننده ها</th>
+            </tr>
+        </thead>
+        <tbody>
+
+    {% for poll in list_polls %}
+        <tr>
+            <td>{{ poll.name }}</td>
+            <td>{{ poll.for_course.name }}</td>
+            <td class='d-felx justify-content-between'>
+                {% for choice in poll.choices.all %}
+                <span class="badge bg-primary m-1">{{choice}} : {{choice.votes.count}}</span>
+                {% endfor %}
+                <a href="{% url 'accounts:add-choice' poll.id %}" class="btn btn-sm btn-success">افزودن کزینه</a>
+            </td>
+            <td>{{ poll.votes.count }}</td>
+        </tr>
+    {% empty %}
+    <p class="item-box d-block">
+        شما مظرسنجی ای ندارید
+    </p>
+    {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'accounts:create-poll' %}" class="btn btn-primary">افزودن نظرسنجی جدید</a>
+</div>
+{% endblock body %}

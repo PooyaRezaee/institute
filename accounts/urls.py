@@ -1,6 +1,21 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView,LogoutView
-from .views import RegisterView,ProfileView,RequestTeacherView,CourseCreateView,MyCoursesView,DeleteCourse,LeaveCourse,CreateArticleView,DeleteArticleView,ArticleListView,CreateHandoutView
+from .views import (
+    RegisterView,
+    ProfileView,
+    RequestTeacherView,
+    CourseCreateView,
+    MyCoursesView,
+    DeleteCourse,
+    LeaveCourse,
+    CreateArticleView,
+    DeleteArticleView,
+    ArticleListView,
+    CreateHandoutView,
+    PollListView,
+    CreatePollView,
+    AddChoiceView
+    )
 
 app_name = 'accounts'
 
@@ -19,4 +34,7 @@ urlpatterns = [
     path("article/create/", CreateArticleView.as_view(), name="create-article"),
     path("article/delete/<int:pk>/", DeleteArticleView.as_view(), name="delete-article"),
     path("handout/create/", CreateHandoutView.as_view(), name="create-handout"),
+    path("poll/", PollListView.as_view(), name="list-poll"),
+    path("poll/create/", CreatePollView.as_view(), name="create-poll"),
+    path("poll/<int:poll_id>/", AddChoiceView.as_view(), name="add-choice"),
 ]

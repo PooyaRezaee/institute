@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Course
+from .models import Course,Poll,Choice
 from home.models import Article,Handout
 
 class DateInput(forms.DateInput):
@@ -29,3 +29,13 @@ class HandoutCreationForm(forms.ModelForm):
     class Meta:
         model = Handout
         fields = '__all__'
+
+class PollCreationForm(forms.ModelForm):
+    class Meta:
+        model = Poll
+        fields = ('name','for_course')
+
+class ChoiceAddForm(forms.ModelForm):
+    class Meta:
+        model = Choice
+        fields = ('name',)

@@ -6,9 +6,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy,reverse
 from django.http import HttpResponseForbidden,HttpResponseNotFound
-from .forms import ProfileForm,CourseCreationForm,ArticleCreationForm,HandoutCreationForm
-from .models import Teacher,Course
+from .forms import CourseCreationForm,ArticleCreationForm,HandoutCreationForm,PollCreationForm,ChoiceAddForm
+from .models import Teacher,Course,Poll,Choice
 from home.models import Article,Handout
+from .mixins import TeacherLoginRequiredMixin
 
 class RegisterView(CreateView):
     template_name = 'registration/register.html'
@@ -34,18 +35,7 @@ class RequestTeacherView(LoginRequiredMixin,RedirectView):
             pass
         return super().get_redirect_url()
 
-class CourseCreateView(LoginRequiredMixin,CreateView):
-    def dispatch(self, request, *args, **kwargs):
-        try:
-            teacher = Teacher.objects.get(account=request.user)
-        except:
-            return HttpResponseForbidden()
-        if teacher.is_active:
-            return super().dispatch(request, *args, **kwargs)
-        else:
-            return HttpResponseForbidden()
-
-
+class CourseCreateView(TeacherLoginRequiredMixin,CreateView):
     template_name = 'account/craete_course.html'
     form_class = CourseCreationForm
 
@@ -151,18 +141,7 @@ class DeleteArticleView(LoginRequiredMixin,View):
         article.delete()
         return redirect('accounts:list-articles')
 
-class CreateHandoutView(LoginRequiredMixin,CreateView):
-    def dispatch(self, request, *args, **kwargs):
-        try:
-            teacher = Teacher.objects.get(account=request.user)
-        except:
-            return HttpResponseForbidden()
-        if teacher.is_active:
-            return super().dispatch(request, *args, **kwargs)
-        else:
-            return HttpResponseForbidden()
-
-
+class CreateHandoutView(TeacherLoginRequiredMixin,CreateView):
     template_name = 'account/craete_handout.html'
     form_class = HandoutCreationForm
 
@@ -170,3 +149,49 @@ class CreateHandoutView(LoginRequiredMixin,CreateView):
         cd = form.cleaned_data
         Handout.objects.create(**cd)
         return redirect('home:index')
+
+class PollListView(TeacherLoginRequiredMixin,ListView):    
+    template_name = 'account/polls.html'
+    context_object_name = 'list_polls'
+
+    def get_queryset(self):
+        queryset = Poll.objects.filter(owner=self.request.user.teacher)
+        return queryset
+
+class CreatePollView(TeacherLoginRequiredMixin,View):
+    form_class = PollCreationForm
+
+    def get(self,request):
+        return render(request,'account/create_poll.html',{'form':self.form_class})
+    
+    def post(self,request):
+        data = request.POST
+        form = self.form_class(data=data)
+
+        if form.is_valid():
+            cd = form.cleaned_data
+            Poll.objects.create(
+                name=cd['name'],
+                for_course=cd['for_course'],
+                owner=request.user.teacher,
+                )
+            return redirect('accounts:list-poll')
+
+        return render(request,'account/create_poll.html',{'form':form})
+
+class AddChoiceView(TeacherLoginRequiredMixin,View):
+    form_class = ChoiceAddForm
+    def get(self,request,poll_id):
+        form = self.form_class
+
+        return render(request,'account/create_poll.html',{'form':form})
+
+    def post(self,request,poll_id):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            choice = Choice.objects.create(name=form.cleaned_data['name'])
+            Poll.objects.get(id=poll_id).choices.add(choice)
+            return redirect('accounts:list-poll')
+
+
+        return render(request,'account/create_poll.html',{'form':form})
